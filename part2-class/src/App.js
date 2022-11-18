@@ -1,8 +1,24 @@
 import Note from "./components/note";
-function App({notes}) {
-  
+import {useState} from 'react'
+
+function App({props}) {
+
+  const [notes, setNotes] = useState([])
+  const [newNote, setNewNote] = useState('a new note')
+
+  const addNote = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+  }
+
+  const handleNoteChange = (event) => {
+    
+    console.log(event.target.value)
+    setNewNote(event.target.value)
+  }
+
   return (
-    <div className="App">
+    <div>
       <h1>Notes</h1>
       <ul>
         { notes.map(note => 
@@ -11,6 +27,10 @@ function App({notes}) {
 
         )}
       </ul>
+      <form onSubmit={addNote}>
+          <input value={newNote} onChange={handleNoteChange}></input>
+          <button type="submit">save</button>
+      </form>
     </div>
   );
 }
